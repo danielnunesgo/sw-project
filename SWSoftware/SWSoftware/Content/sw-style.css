@@ -1,0 +1,8 @@
+﻿.card-product {
+    overflow: hidden;
+    line-height: 1.42857;
+    padding: 12px;
+    background: transparent;
+    position: relative;
+    text-align: left;
+}

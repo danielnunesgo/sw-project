@@ -17,6 +17,8 @@ namespace SWSoftware.DAL
 
         public IDbSet<Product> Products { get; set; }
         public IDbSet<Sale> Sales { get; set; }
+        public IDbSet<ProductImage> ProductImage { get; set; }
+        public IDbSet<CartItem> CartItem { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

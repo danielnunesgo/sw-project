@@ -12,8 +12,9 @@ namespace SWSoftware.DAL
         {
             var salesList = new List<Sale>
             {
-                new Sale{ID = 1, SaleDescription = "Pague 1 e Leve 2" },
-                new Sale{ID = 2, SaleDescription = "3 por 10 reais"}
+                new Sale{ID = 1, SaleDescription = "Sem promoção"},
+                new Sale{ID = 2, SaleDescription = "Pague 1 e Leve 2" },
+                new Sale{ID = 3, SaleDescription = "3 por 10 reais"}
             };
 
             salesList.ForEach(w => context.Sales.Add(w));

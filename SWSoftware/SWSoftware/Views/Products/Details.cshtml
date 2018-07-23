@@ -28,6 +28,14 @@
         </dd>
 
         <dt>
+            Descrição do Produto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
             Preço
         </dt>
 
@@ -46,37 +54,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    <button class="btn btn-primary" id="btnAddToCart">Adicionar ao Carrinho</button>
-    @Html.ActionLink("Add To Cart", "AddToCart", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Voltar", "Index")
 </p>
-
-<div class="modal" id="modalQuantity">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Digite a quantidade desejada</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                </p>
-            </div>
-            <div class="modal-footer">
-                @Html.ActionLink("Add To Cart", "AddToCart", new { id = Model.ID, quantity = Model.Quantity })
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $('#btnAddToCart').click(function () {
-        $('#modalQuantity').modal('show');
-    })
-</script>
-
 

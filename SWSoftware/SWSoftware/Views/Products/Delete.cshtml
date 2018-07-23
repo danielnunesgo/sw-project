@@ -5,14 +5,22 @@
 }
 
 <h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+@Html.ActionLink("Voltar", "Index")
+<h3>Você tem certeza que deseja excluir este produto?</h3>
 <div>
     <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
+            Imagem
+        </dt>
+
+        <dd>
+            <img src="@Url.Action("GetActualImage", "Products", new { productId = Model.ID })" alt="Product Image" />
+        </dd>
+
+        <dt>
+            Produto
         </dt>
 
         <dd>
@@ -20,7 +28,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            Descrição do Produto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
+            Preço
         </dt>
 
         <dd>
@@ -37,12 +53,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" />
         </div>
     }
 </div>

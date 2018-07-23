@@ -10,33 +10,39 @@
     @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-
-        <div class="form-control" id="productForm">
-            <h5>{{formHeader}}</h5>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                <label class="control-label col-md-2">{{productText}}</label>
-                <div class="control has-icons-left col-md-10">
-                    @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <div class="" id="productForm">
+                @Html.ActionLink("Voltar", "Index")
+                <h4>{{formHeader}}</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">{{productText}}</label>
+                    <div class="control has-icons-left col-md-10">
+                        @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2">{{priceText}}</label>
-                <div class="control has-icons-left col-md-10">
-                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">{{productDescription}}</label>
+                    <div class="control has-icons-left col-md-10">
+                        @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2">{{saleText}}</label>
-                <div class="control has-icons-left col-md-10">
+                <div class="form-group">
+                    <label class="control-label col-md-2">{{priceText}}</label>
+                    <div class="control has-icons-left col-md-10">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">{{saleText}}</label>
+                    <div class="control has-icons-left col-md-10">
                         @Html.DropDownListFor(model => model.SaleID, ViewBag.Sales as SelectList)
+                    </div>
                 </div>
-            </div>
                 <div class="form-group col-md-12" id="uploadFile">
                     <br />
                     <label class="control-label" for="file">{{uploadText}}</label>
@@ -44,30 +50,31 @@
                         <input type="file" name="file" />
                     </div>
                 </div>
-            <div class="form-group">
-                <div class="col-md-2">
-                    @Html.ActionLink("Voltar", "Index")
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
                 </div>
+                @ViewBag.CreateStatus
             </div>
-            @ViewBag.CreateStatus
         </div>
     }
 </div>
 
-    <script>
-        new Vue({
-            el: '#productForm',
-            data: {
-                priceText: "Preço",
-                productText: "Nome do produto",
-                saleText: "Promoção",
-                uploadText: "Imagem do produto",
-                formHeader: "Cadastrar Produto"
-            }
-        })
-    </script>
+<script>
+    new Vue({
+        el: '#productForm',
+        data: {
+            priceText: "Preço",
+            productText: "Nome do produto",
+            productDescription: "Descrição do produto",
+            saleText: "Promoção",
+            uploadText: "Imagem do produto",
+            formHeader: "Cadastrar Produto"
+        }
+    })
+</script>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

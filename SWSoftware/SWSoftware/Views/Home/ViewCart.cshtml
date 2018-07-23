@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SWSoftware.Models.CartItem>
+
+@{
+    ViewBag.Title = "Ítens no carrinho";
+}
+
+<br />
+<br />
+<br />
+
+<h2>Carrinho</h2>
+
+<div class="col-md-12">
+    <table class="table">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Preço
+            </th>
+            <th>
+                Promoção
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Action("GetThumbnailImage", "Products", new { productId = item.ProductId })" alt="Product Image" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.SaleDescription)
+                </td>
+                <td>
+                    @Html.ActionLink("Detalhes", "ViewDetails", new { id = item.ID }) |
+                    @Html.ActionLink("Remover", "DeleteFromCart", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <table class="table">
+        <tr>
+            <th>Total de ítens</th>
+            <th>Valor Total</th>
+        </tr>
+        <tr>
+            <td>@ViewBag.totalItems</td>
+            <td>@ViewBag.totalPrice</td>
+        </tr>
+    </table>
+
+    @Html.ActionLink("Voltar", "ViewUser")
+</div>
+
+

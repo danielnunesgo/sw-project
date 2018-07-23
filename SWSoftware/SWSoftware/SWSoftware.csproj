@@ -227,7 +227,10 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Products\Products.cshtml" />
+    <Content Include="Views\Home\ViewUser.cshtml" />
+    <Content Include="Views\Home\ViewCart.cshtml" />
+    <Content Include="Views\Home\ViewDetails.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,102 @@
+﻿@model SWSoftware.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+<br />
+<br />
+@Html.ActionLink("Voltar", "ViewUser")
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Imagem
+        </dt>
+
+        <dd>
+            <img src="@Url.Action("GetActualImage", "Products", new { productId = Model.ID })" alt="Product Image" />
+        </dd>
+
+        <dt>
+            Produto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            Descrição do Produto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
+            Preço
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            Promoção
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SaleDescription)
+        </dd>
+
+    </dl>
+</div>
+<div class="btn-group">
+    <button class="btn btn-primary" id="btnAddToCart">Adicionar ao Carrinho</button>
+</div>
+
+
+<div class="modal fade" id="modalQuantity">
+    <div class="modal-dialog">
+        @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post))
+        {
+            <div class="modal-content" id="quantityForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Digite a quantidade desejada</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "hide", @type = "number" } })
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Enviar para o carrinho</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#quantityForm',
+        data: {
+            quantity: 0
+        }
+    })
+
+    $('#btnAddToCart').click(function () {
+        $('#modalQuantity').modal('show');
+    })
+</script>
+
+
+

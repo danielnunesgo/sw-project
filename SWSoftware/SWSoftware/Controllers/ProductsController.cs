@@ -25,57 +25,6 @@ namespace SWSoftware.Controllers
             return View(db.Products.ToList());
         }
 
-        public ActionResult Products()
-        {
-            var cartItems = db.CartItem.ToList();
-            ViewBag.totalItems = 0;
-            ViewBag.totalPrice = 0;
-
-            foreach (var item in cartItems)
-            {
-                var firstSale = db.CartItem.Where(w => w.Product.SaleID == 2 && w.ProductId == item.ProductId).ToList();
-
-                if(firstSale.Count > 0)
-                {
-                    ViewBag.totalItems = ViewBag.totalItems + (firstSale.Count * 2);
-                    foreach (var sale in firstSale)
-                        ViewBag.totalPrice = ViewBag.totalPrice + sale.Product.Price;
-                }
-
-                var secondSale = db.CartItem.Where(w => w.Product.SaleID == 3 && w.ProductId == item.ProductId).ToList();
-
-                if (secondSale.Count > 0)
-                {
-                    ViewBag.totalItems = ViewBag.totalItems + secondSale.Count;
-                    var teste = Convert.ToInt32(secondSale.Count / 3);
-
-                    if (teste != 0)
-                    {
-                        ViewBag.totalPrice = teste * 10;
-                        var remainder = secondSale.Count % 3;
-
-                        if (remainder != 0)
-                        {
-                            for (int i = 0; i < remainder; i++)
-                                ViewBag.totalPrice = ViewBag.totalPrice + item.Product.Price;
-                        }
-                    }
-                    else
-                    {
-                        var remainder = secondSale.Count % 3;
-                        if (remainder != 0)
-                        {
-                            for (int i = 0; i < remainder; i++)
-                                ViewBag.totalItems = ViewBag.totalItems + item.Product.Price;
-                        }
-                    }
-                }
-
-            }
-
-            return View(cartItems);
-        }
-
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -105,7 +54,7 @@ namespace SWSoftware.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProductName,Price,SaleID,ImageName")] Product product, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "ID,ProductName,ProductDescription,Price,SaleID,ImageName")] Product product, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -156,25 +105,6 @@ namespace SWSoftware.Controllers
                 return null;
         }
 
-
-        public ActionResult AddToCart(int id)
-        {
-            var product = db.Products.Find(id);
-
-            if(product != null)
-            {
-                var cartItem = new CartItem()
-                {
-                    ProductId = product.ID,
-                    DateCreated = DateTime.Now
-                };
-                db.CartItem.Add(cartItem);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
-        }
-
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -195,7 +125,7 @@ namespace SWSoftware.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProductName,Price,SaleID")] Product product)
+        public ActionResult Edit([Bind(Include = "ID,ProductName,ProductDescription,Price,SaleID,ImageName")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -219,24 +149,6 @@ namespace SWSoftware.Controllers
                 return HttpNotFound();
             }
             return View(product);
-        }
-
-        public ActionResult DeleteFromCart(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CartItem cartItem = db.CartItem.Find(id);
-            if (cartItem == null)
-            {
-                return HttpNotFound();
-            }
-
-            db.CartItem.Remove(cartItem);
-            db.SaveChanges();
-
-            return RedirectToAction("Products");
         }
 
         [HttpGet]

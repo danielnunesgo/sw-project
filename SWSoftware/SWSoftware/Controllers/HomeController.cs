@@ -59,11 +59,11 @@ namespace SWSoftware.Controllers
                 if (secondSale.Count > 0)
                 {
                     ViewBag.totalItems = ViewBag.totalItems + secondSale.Count;
-                    var teste = Convert.ToInt32(secondSale.Count / 3);
+                    var qtyProductsInSale = Convert.ToInt32(secondSale.Count / 3);
 
-                    if (teste != 0)
+                    if (qtyProductsInSale != 0)
                     {
-                        ViewBag.totalPrice = ViewBag.totalPrice + (teste * 10);
+                        ViewBag.totalPrice = ViewBag.totalPrice + (qtyProductsInSale * 10);
                         var remainder = secondSale.Count % 3;
 
                         if (remainder != 0)
